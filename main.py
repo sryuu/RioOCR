@@ -52,7 +52,7 @@ yolo4_model.load_weights(model_path)
 
 _decode = Decode(conf_thresh, nms_thresh, model_image_size, yolo4_model, class_names)
 
-def myOCR(image):
+def myOCR(image,bun):
     # 4.ＯＣＲ実行
     sorty = []
     sortx = []
@@ -89,7 +89,6 @@ def myOCR(image):
         #print("文字だけソートして抽出:\n" + str(printer))
         #ここで文字列ごとに分ける
         #ocr行しきい値
-        bun = 3
         printer1 = np.zeros(bun)
         l_n_str = [str(n) for n in printer1]
         for mojiretu in range(bun):
@@ -110,5 +109,5 @@ def myOCR(image):
 
 #makedata = 0
 if __name__ == '__main__':
-    im = cv2.imread("path of image")
-    myOCR(im)#input image data here
+    im = cv2.imread("path of image")#input image data here
+    myOCR(im,"画像を分割する割合")
