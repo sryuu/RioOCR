@@ -21,3 +21,4 @@ after this
 change program line
 https://github.com/sryuu/RioOCR/blob/cd3c42cedafac9bc1becd176bf5873bde63a178a/main.py#L112
 put your image path here
+and input number to cut image for read line
