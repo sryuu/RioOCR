@@ -12,3 +12,12 @@ this OCR is a by-product of my own research
 
 ![image](https://user-images.githubusercontent.com/56717608/112598439-ec20cd80-8e51-11eb-92a7-774e22112092.png)
 ![image](https://user-images.githubusercontent.com/56717608/112598454-f04ceb00-8e51-11eb-912a-2030b7a57a66.png)
+
+# How to use
+download every thing and get trained model from URLs
+and then put them in same folder 
+
+after this 
+change program line
+https://github.com/sryuu/RioOCR/blob/cd3c42cedafac9bc1becd176bf5873bde63a178a/main.py#L112
+put your image path here
