@@ -24,8 +24,13 @@ put your image path here
 and input number to cut image for read line
 
 # Example2
+
 if __name__ == '__main__':
+
     im = cv2.imread("path of image")#input image data here
+
     ocr_result,resofyolo = ocr.myOCR(im,"画像を等分したい数値")
+
     print(ocr_result)
+
     pprint.pprint(resofyolo)
