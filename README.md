@@ -8,7 +8,7 @@ this OCR is a by-product of my own research
 
 学習済みモデルは大きすぎるため、必要があれば共有いたします。
 
-# Example
+# Example1
 
 ![image](https://user-images.githubusercontent.com/56717608/112598439-ec20cd80-8e51-11eb-92a7-774e22112092.png)
 ![image](https://user-images.githubusercontent.com/56717608/112598454-f04ceb00-8e51-11eb-912a-2030b7a57a66.png)
@@ -22,3 +22,10 @@ change program line
 https://github.com/sryuu/RioOCR/blob/cd3c42cedafac9bc1becd176bf5873bde63a178a/main.py#L112
 put your image path here
 and input number to cut image for read line
+
+# Example2
+if __name__ == '__main__':
+    im = cv2.imread("path of image")#input image data here
+    ocr_result,resofyolo = ocr.myOCR(im,"画像を等分したい数値")
+    print(ocr_result)
+    pprint.pprint(resofyolo)
