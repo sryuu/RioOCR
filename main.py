@@ -1,9 +1,9 @@
-import numpy as np
-import cv2
-import os
-from keras.layers import Input
-from yolo4.model import yolo_eval, yolo4_body
 from decode_np import Decode
+import os
+import numpy as np
+from yolo4.model import yolo_eval, yolo4_body
+from keras.layers import Input
+import cv2
 from operator import itemgetter
 
 #1.landmarkの前準備
@@ -16,8 +16,7 @@ with open("./model_data/my_classes.txt",encoding='utf-8') as f:
 
 def get_class(classes_path):
     classes_path = os.path.expanduser(classes_path)
-    with open(classes_path,encoding='utf-8') as f:
-        class_names = f.readlines()
+    with open(classes_path,encoding='utf-8') as f:class_names = f.readlines()
     class_names = [c.strip() for c in class_names]
     return class_names
 
@@ -61,18 +60,24 @@ def myOCR(image,bun):
     pcount=0
     sco=[]
     cla=[]
+    ocr_result=[]
     height, width, channels = image.shape[:3]
     changed_image, boxes, scores, classes = _decode.detect_image(image, True)
     if classes is None:
         print("認識可能な文字がありません")
+        resofyolo = []
         pass
     else:
         for res in range(len(classes)):
             sco.append(scores[res])
             cla.append(class_names[classes[res]])
         resofyolo = dict(zip(cla,sco))
-        pprint.pprint(resofyolo)
+        #pprint.pprint(resofyolo)
+        
         changed_image = cv2.resize(changed_image, (300,300))
+        cv2.imshow('image', changed_image)
+        cv2.waitKey(0)
+        
         for long in range(len(classes)):
             sorty.append(int(boxes[long][1]))
             sortx.append(int(boxes[long][0]))
@@ -87,10 +92,10 @@ def myOCR(image,bun):
         #print(sorted_data)
         #print(len(sorted_data))
         #print("文字だけソートして抽出:\n" + str(printer))
-        #ここで文字列ごとに分ける
-        #ocr行しきい値
+        #リストを目的個分作る
         printer1 = np.zeros(bun)
         l_n_str = [str(n) for n in printer1]
+
         for mojiretu in range(bun):
             for moji in sorted_data:
                 if mojiretu*height/bun <= moji[2] < (mojiretu+1)*height/bun:
@@ -98,16 +103,9 @@ def myOCR(image,bun):
                         l_n_str[mojiretu] = moji[0]
                     else:l_n_str[mojiretu] += moji[0]
                     pcount += 1
-            pcount=0
-        print(cat+":")
+            pcount = 0
         for ocr in l_n_str:
             if ocr == "0.0":
                 continue
-            print(ocr)
-    cv2.imshow('image', changed_image)
-    cv2.waitKey(0)
-
-#makedata = 0
-if __name__ == '__main__':
-    im = cv2.imread("path of image")#input image data here
-    myOCR(im,"画像を分割する割合")
+            ocr_result.append(ocr)
+    return ocr_result,resofyolo
